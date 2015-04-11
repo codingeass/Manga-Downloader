@@ -107,10 +107,17 @@ Public Class Form1
         If dialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Destination = dialog.SelectedPath
         End If
-
+        Dim counter As Integer
+        Dim newFilename As String
         While i < match.Count
             Try
-                Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), Destination & i.ToString & ".jpg")
+                newFilename = Destination & "\" & i.ToString & ".jpg"
+                counter = 0
+                While File.Exists(newFilename)
+                    counter = counter + 1
+                    newFilename = Destination & "\" & i.ToString & "(" & counter & ").jpg"
+                End While
+                Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), newFilename)
                 Client.Dispose()
             Catch e As Exception
                 MsgBox(e.Message)
