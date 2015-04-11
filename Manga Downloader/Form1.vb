@@ -121,7 +121,12 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        KissMangaImage(DownloadUrl(ListBox1.SelectedIndex))
+        Dim i As Integer = 0
+
+        While i < ListBox1.SelectedIndices.Count
+            KissMangaImage(DownloadUrl(ListBox1.SelectedIndices(i)))
+            i += 1
+        End While
     End Sub
 
 End Class
