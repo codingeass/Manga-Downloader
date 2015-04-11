@@ -7,6 +7,7 @@ Public Class Form1
     Dim DownloadUrl() As String
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         enteredUrl = TextBox1.Text
+        'enteredUrl = "http://kissmanga.com/Manga/Hatsukoi"
         'Dim sourceString As String = New System.Net.WebClient().DownloadString(enteredUrl)
         'MsgBox(sourceString)
         'WebBrowser1.Navigate(enteredUrl)
@@ -44,11 +45,12 @@ Public Class Form1
         Dim i As Integer = 0
         Dim StrMatch As String = ""
         Dim MangaChapter() As String
+        Dim DisplayChapter As String
         If matches.Count <> 0 Then
             ReDim MangaChapter(matches.Count)
             ReDim DownloadUrl(matches.Count)
         End If
-        ListBox1.Items.Clear()
+        CheckedListBox1.Items.Clear()
         While i < matches.Count
             MangaChapter(i) = matches(i).Value.Replace("<a href=", "")
             MangaChapter(i) = MangaChapter(i).Replace("""", "")
@@ -58,7 +60,9 @@ Public Class Form1
             StrMatch += MangaChapter(i)
             'ListBox1.Items.Add(MangaChapter(i).Split.First)
             DownloadUrl(i) = MangaChapter(i).Split.First
-            ListBox1.Items.Add(match.Value.Replace("</a>", "").Replace(">", ""))
+            DisplayChapter = match.Value.Replace("</a>", "").Replace(">", "")
+            'ListBox1.Items.Add(DisplayChapter)
+            CheckedListBox1.Items.Add(DisplayChapter.Substring(1))
             i += 1
         End While
         'MsgBox(StrMatch)
@@ -116,15 +120,10 @@ Public Class Form1
         End While
     End Sub
 
-    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
-
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Dim i As Integer = 0
-
-        While i < ListBox1.SelectedIndices.Count
-            KissMangaImage(DownloadUrl(ListBox1.SelectedIndices(i)))
+        While i < CheckedListBox1.SelectedIndices.Count
+            KissMangaImage(DownloadUrl(CheckedListBox1.SelectedIndices(i)))
             i += 1
         End While
     End Sub
