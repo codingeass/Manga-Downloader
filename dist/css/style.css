@@ -1,0 +1,231 @@
+@import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic|Share+Tech+Mono|Oxygen+Mono);
+body { 
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+body{
+	margin: 0.2%;
+	cursor: default;
+	/* For Opera and <= IE9, we need to add unselectable="on" attribute onto each element */
+	-moz-user-select: none; /* These user-select properties are inheritable, used to prevent text selection */
+    -webkit-user-select: none;
+    -ms-user-select: none; /* From IE10 only */
+    user-select: none; /* Not valid CSS yet, as of July 2012 */
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;
+}
+
+img{
+    -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+    user-drag: none;	
+}
+
+.first_section{	
+  background-color:#43474b;
+  color:#ddfbfb;
+  width: 100%;
+  font-size:16px;
+}
+
+.first_section #nav_first {
+	margin-top: 0.3em;	
+	margin-bottom: 3em;
+	background: transparent;
+	background-color: none;
+	border: none;
+	cursor: pointer;
+}
+
+.first_section #nav_first #navbar li:hover{
+	background-color: #e7e7e7;
+}
+
+.first_section #nav_first a{
+	font-size: 23px;
+	color: #afc7a4;
+}
+
+#Page_title{
+	text-align: :center;
+	margin-left: auto;
+	display: inline;
+	margin-right: auto;
+	font-size: 2em;
+}
+
+#img_profile{
+	/*height: 84%;*/
+	border-right:3px solid white;
+	padding-right: 0px;
+	padding-bottom: 0px;
+} 
+
+#img_profile #profile_pic{
+	width:58%;
+	border: 3px solid #a8a6a8;
+  -webkit-radial-gradient(white,grey);
+  -webkit-radial-gradient: red,white;
+  color:rgba(255,255,255,0.7);
+  -webkit-transition:-webkit-border-radius 1s,opacity 1s,border 1s,padding 1s;
+   -moz-radial-gradient(white,grey);
+  -moz-radial-gradient: red,white;
+}
+
+#img_profile #aboutme_short{
+	margin-top:0.3em;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	border-bottom: 1px solid white; 
+}
+
+#img_profile #social_link img{
+	width:50px;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.first_section #text_side{
+	padding-right: 2em;
+	display: block;
+	margin-bottom: 1em; 
+}
+
+.first_section #text_side #quotes {	
+	background-color:black;
+	padding:20px;
+	-webkit-border-radius:15px;
+	-moz-border-radius:15px;
+}
+
+.first_section #text_side #quotes #author{
+	text-align: right;
+}
+
+.first_section #projects .project_icon{
+	background-color: #dcd8dc;
+} 
+.first_section #projects .project_icon p{
+	font-size: 15px;
+}
+.first_section #projects{
+	margin-top: 5%;
+}
+.first_section #projects #project_img{
+	height: 150px; 
+	display: block;
+	cursor: pointer;
+}
+
+.first_section #projects .caption > h4{
+	cursor: pointer;
+}
+
+/*
+.first_section #loader{
+	position: inherit;
+	background: transparent;
+	margin-left:45%;
+	margin-bottom: 0px;
+	top: -230px;
+	margin-right: auto;
+	display: ;
+	z-index: 999;	
+}
+.first_section #loader img{
+	height:70px;  
+}
+*/
+
+.first_section #content_dir{
+	display: block;
+	height: 84%;
+	overflow-y: auto;
+}
+
+@media only screen and (max-width:996px) {
+  .first_section #content_dir{
+    height: auto;
+    overflow-y:visible;
+    margin-top:2em; 
+    padding-top:2em; 
+    border-top: 2px solid white; 
+  }
+}
+
+.first_section #content_dir #projdescription a:hover{
+	text-decoration: none;
+}
+
+.first_section #content_dir #projdescription .thumbnail{
+	display: block;
+	width: 50%;
+	overflow-y: auto;
+	text-align: center;
+	 margin-left: auto;
+    margin-right: auto;
+}
+
+.highlight {
+padding: 9px 14px;
+margin-bottom: 14px;
+background-color: #484848;
+border: 1px solid #7e7d7e;
+border-radius: 4px;
+}
+
+.first_section #content_dir #about_me{
+	font-size: 21px;
+}
+
+.first_section #content_dir #about_me a:hover{
+	text-decoration: none;
+}
+
+/* slider attractive*/
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #555861; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: none; 
+}
+/* Track */
+scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: grey; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+scrollbar-thumb:window-inactive {
+  background: none; 
+}
+	
+/*slider end*/
+
