@@ -6,8 +6,8 @@ Public Class Form1
     Dim enteredUrl As String
     Dim DownloadUrl() As String
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        enteredUrl = TextBox1.Text
-        'enteredUrl = "http://kissmanga.com/Manga/Hatsukoi"
+        'enteredUrl = TextBox1.Text
+        enteredUrl = "http://kissmanga.com/Manga/Hatsukoi"
         'Dim sourceString As String = New System.Net.WebClient().DownloadString(enteredUrl)
         'MsgBox(sourceString)
         'WebBrowser1.Navigate(enteredUrl)
@@ -70,22 +70,9 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim URL As String = "http://kissmanga.com/Manga/Haru-Koi"
-        Dim request As HttpWebRequest = WebRequest.Create(URL)
-        request.UserAgent = ".NET Framework Test Client"
-        Dim response As HttpWebResponse = request.GetResponse()
-        Dim reader As StreamReader = New StreamReader(response.GetResponseStream())
-        'Dim str As String = reader.ReadLine()
-        Dim str As String = reader.ReadToEnd
-        'Do While str.Length > 0
-        '    Console.WriteLine(str)
-        '    str += reader.ReadLine()
-        'Loop
-        'MsgBox(complete)
-        'KissMangaImage("/Manga/Haru-Koi/Vol-001-Ch-004--Misa-s-Eatery?id=115540")
     End Sub
 
-    Private Sub KissMangaImage(url As String)
+    Private Sub KissMangaImage(url As String, subFolder As String)
         Dim KissMangaUrlCom As String = "http://kissmanga.com" + url
         Dim request As HttpWebRequest = WebRequest.Create(KissMangaUrlCom)
         request.UserAgent = ".NET Framework Test Client"
@@ -99,6 +86,51 @@ Public Class Form1
         Dim i As Integer = 0
         Dim Client As New WebClient
         'MsgBox(match.Count)
+        
+        Dim counter As Integer
+        Dim newFilename As String
+
+        Dim illegal As String = """M""\a/ry/ h**ad:>> a\/:*?""| li*tt|le|| la""mb.?"
+        Dim regexSearch As String = New String(Path.GetInvalidFileNameChars()) & New String(Path.GetInvalidPathChars())
+        Dim r As New Regex(String.Format("[{0}]", regex.Escape(regexSearch)))
+        subFolder = r.Replace(subFolder, "")
+
+        newFilename = Destination & "\" & subFolder
+        If Not Directory.Exists(newFilename) Then
+            Directory.CreateDirectory(newFilename)
+        End If
+
+        'Dim di As DirectoryInfo
+        'di = New DirectoryInfo(newFilename)
+        'di.Exists
+
+        While i < match.Count
+            Try
+                counter = 0
+                While File.Exists(newFilename & "\" & i.ToString & ".jpg")
+                    counter = counter + 1
+                End While
+                Try                    
+                    If counter <> 0 Then
+                        Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), newFilename & "\" & i.ToString & "(" & counter & ").jpg")
+                    Else
+                        Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), newFilename & "\" & i.ToString & ".jpg")
+                    End If
+                Catch e As Exception
+                    MsgBox(e.Message)
+                End Try
+                Client.Dispose()
+            Catch e As Exception
+                MsgBox(e.Message)
+            End Try
+            i += 1
+        End While
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim i As Integer = 0
+        Dim itemChecked As Object
+
         Dim Destination As String
         Dim dialog As New FolderBrowserDialog()
         dialog.RootFolder = Environment.SpecialFolder.Desktop
@@ -107,32 +139,14 @@ Public Class Form1
         If dialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Destination = dialog.SelectedPath
         End If
-        Dim counter As Integer
-        Dim newFilename As String
-        While i < match.Count
-            Try
-                newFilename = Destination & "\" & i.ToString & ".jpg"
-                counter = 0
-                While File.Exists(newFilename)
-                    counter = counter + 1
-                    newFilename = Destination & "\" & i.ToString & "(" & counter & ").jpg"
-                End While
-                Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), newFilename)
-                Client.Dispose()
-            Catch e As Exception
-                MsgBox(e.Message)
-            End Try
-            'RichTextBox1.AppendText(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""))
-            i += 1
-        End While
-    End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim i As Integer = 0
-        While i < CheckedListBox1.SelectedIndices.Count
-            KissMangaImage(DownloadUrl(CheckedListBox1.SelectedIndices(i)))
-            i += 1
-        End While
+        For Each itemChecked In CheckedListBox1.CheckedItems
+            'MsgBox(CheckedListBox1.Items.IndexOf(itemChecked))
+            'MsgBox(CheckedListBox1.Items(CheckedListBox1.Items.IndexOf(itemChecked)))
+            'MsgBox(DownloadUrl(CheckedListBox1.Items.IndexOf(itemChecked)))
+            KissMangaImage(DownloadUrl(CheckedListBox1.Items.IndexOf(itemChecked)), CheckedListBox1.Items(CheckedListBox1.Items.IndexOf(itemChecked)))
+        Next
+
     End Sub
 
 End Class
