@@ -6,8 +6,8 @@ Public Class Form1
     Dim enteredUrl As String
     Dim DownloadUrl() As String
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'enteredUrl = TextBox1.Text
-        enteredUrl = "http://kissmanga.com/Manga/Hatsukoi"
+        enteredUrl = TextBox1.Text
+        'enteredUrl = "http://kissmanga.com/Manga/Hatsukoi"
         'Dim sourceString As String = New System.Net.WebClient().DownloadString(enteredUrl)
         'MsgBox(sourceString)
         'WebBrowser1.Navigate(enteredUrl)
@@ -72,7 +72,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
     End Sub
 
-    Private Sub KissMangaImage(url As String, subFolder As String)
+    Private Sub KissMangaImage(url As String, subFolder As String, Destination As String)
         Dim KissMangaUrlCom As String = "http://kissmanga.com" + url
         Dim request As HttpWebRequest = WebRequest.Create(KissMangaUrlCom)
         request.UserAgent = ".NET Framework Test Client"
@@ -86,7 +86,7 @@ Public Class Form1
         Dim i As Integer = 0
         Dim Client As New WebClient
         'MsgBox(match.Count)
-        
+
         Dim counter As Integer
         Dim newFilename As String
 
@@ -110,7 +110,7 @@ Public Class Form1
                 While File.Exists(newFilename & "\" & i.ToString & ".jpg")
                     counter = counter + 1
                 End While
-                Try                    
+                Try
                     If counter <> 0 Then
                         Client.DownloadFile(match(i).Value.Replace("lstImages.push(""", "").Replace(""");", ""), newFilename & "\" & i.ToString & "(" & counter & ").jpg")
                     Else
@@ -144,7 +144,7 @@ Public Class Form1
             'MsgBox(CheckedListBox1.Items.IndexOf(itemChecked))
             'MsgBox(CheckedListBox1.Items(CheckedListBox1.Items.IndexOf(itemChecked)))
             'MsgBox(DownloadUrl(CheckedListBox1.Items.IndexOf(itemChecked)))
-            KissMangaImage(DownloadUrl(CheckedListBox1.Items.IndexOf(itemChecked)), CheckedListBox1.Items(CheckedListBox1.Items.IndexOf(itemChecked)))
+            KissMangaImage(DownloadUrl(CheckedListBox1.Items.IndexOf(itemChecked)), CheckedListBox1.Items(CheckedListBox1.Items.IndexOf(itemChecked)), Destination)
         Next
 
     End Sub
