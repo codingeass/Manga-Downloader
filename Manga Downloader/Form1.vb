@@ -72,8 +72,6 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    End Sub
 
     Private Sub KissMangaImage(url As String, subFolder As String, Destination As String)
         Dim KissMangaUrlCom As String = "http://kissmanga.com" + url
@@ -155,4 +153,8 @@ Public Class Form1
         End Try
     End Sub
 
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ComboBox1.Items.Add("KissManga")
+        ComboBox1.SelectedIndex = 0
+    End Sub
 End Class
