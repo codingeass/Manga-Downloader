@@ -18,6 +18,6 @@ In Japan, people of all ages read manga. The medium includes works in a broad ra
 
 Sending pull requests for bug fixes or new features and improvements.
 
-###Front End of this Application look like this
+###Front End of Application look like this
 
 ![var imp](Screenshot.png)
